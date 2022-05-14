@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">iem</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="events_page_icon">События</string>
+    <string name="tasks_page_icon">Задачи</string>
+    <string name="home_page_icon">Профиль</string>
+    <string name="sign_in_title">Вход</string>
+    <string name="sign_in_btn">Войти</string>
+    <string name="login_hint">Логин</string>
+    <string name="password_hint">Пароль</string>
+    <string name="loading_message">загрузка..</string>
+</resources>
