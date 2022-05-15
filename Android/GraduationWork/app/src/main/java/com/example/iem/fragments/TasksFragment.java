@@ -14,18 +14,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.iem.MainActivity;
 import com.example.iem.R;
 import com.example.iem.network.NetworkService;
+import com.example.iem.network.models.Task;
 import com.example.iem.network.models.TaskList;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,7 @@ public class TasksFragment extends Fragment {
 
     private final List<CheckBox> taskStateList = new ArrayList<>();
     private ListView taskList = null;
-    private List<TaskList> taskListList = new ArrayList<>();
+    private List<TaskList> taskListList = null;
 
 
     public TasksFragment() {
@@ -47,26 +49,63 @@ public class TasksFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tasks, container, false);
-        debugInit();
         taskListInit(view);
         taskListCheckButtonInit(view);
         linkListInit(view);
+        loadTaskBox(view);
         return view;
     }
 
-    private void loadTask() {
+    private void loadTaskBox(View view) {
         (new NetworkService())
                 .getApi()
                 .getAllTaskList(MainActivity.MyUser.id)
                 .enqueue(new Callback<List<TaskList>>() {
                     @Override
                     public void onResponse(@NonNull Call<List<TaskList>> call, @NonNull Response<List<TaskList>> response) {
+                        if (response.body() == null || response.body().size() < 1) {
+                            ((TextView)view.findViewById(R.id.taskListBoxTitle))
+                                    .setText("Задач нет");
+                            return;
+                        }
+                        @SuppressLint("SimpleDateFormat")
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
                         taskListList = response.body();
+                        loadTaskList(view, taskListList.get(0).getId());
+                        ((TextView)view.findViewById(R.id.taskListBoxTitle))
+                                .setText(taskListList.get(0).getTitle());
+                        ((TextView)view.findViewById(R.id.DL))
+                                .setText(sdf.format(taskListList.get(0).getDeadline()));
                     }
-
                     @Override
                     public void onFailure(@NonNull Call<List<TaskList>> call, @NonNull Throwable t) {
                         System.out.println("TASK LIST GETTING FAILED");
+                    }
+                });
+    }
+
+    private void loadTaskList(View view, Integer taskListId) {
+        (new NetworkService())
+                .getApi()
+                .getAllTaskByTaskList(taskListId)
+                .enqueue(new Callback<List<Task>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<Task>> call, @NonNull Response<List<Task>> response) {
+                        List<Task> body = response.body();
+                        if(body == null || body.size() < 1) {
+                            return;
+                        }
+                        for (int i = 0; i < body.size(); i++) {
+                            CheckBox cb = new CheckBox(requireContext());
+                            cb.setText(body.get(i).getContent());
+                            cb.setChecked(body.get(i).getChecked());
+                            taskStateList.add(cb);
+                            taskListInit(view);
+                        }
+                    }
+                    @Override
+                    public void onFailure(@NonNull Call<List<Task>> call, @NonNull Throwable t) {
+                        System.out.println("err");
                     }
                 });
     }
@@ -82,6 +121,17 @@ public class TasksFragment extends Fragment {
     }
 
     private void taskListInit(View view) {
+        ArrayAdapter<CheckBox> adapter = getCheckBoxAdapter();
+        adapter.notifyDataSetChanged();
+        taskList = view.findViewById(R.id.task_list);
+        taskList.setItemsCanFocus(false);
+        taskList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        taskList.setSelected(true);
+        taskList.setClickable(true);
+        taskList.setAdapter(adapter);
+    }
+
+    private ArrayAdapter<CheckBox> getCheckBoxAdapter() {
         ArrayAdapter<CheckBox> adapter = new ArrayAdapter<CheckBox>(requireContext(), R.layout.task_item, taskStateList) {
             @SuppressLint("ViewHolder")
             @NonNull
@@ -110,13 +160,7 @@ public class TasksFragment extends Fragment {
                 return convertView;
             }
         };
-        adapter.notifyDataSetChanged();
-        taskList = view.findViewById(R.id.task_list);
-        taskList.setItemsCanFocus(false);
-        taskList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        taskList.setSelected(true);
-        taskList.setClickable(true);
-        taskList.setAdapter(adapter);
+        return adapter;
     }
 
     private void taskListCheckButtonInit(View view) {
@@ -141,15 +185,6 @@ public class TasksFragment extends Fragment {
                     }
                 });
         builder.create().show();
-    }
-
-    private void debugInit() {
-        for(int i = 0; i < 3; i++) {
-            String str = "Задача";
-            CheckBox ncb = new CheckBox(requireContext());
-            ncb.setText(str);
-            taskStateList.add(ncb);
-        }
     }
 
 }

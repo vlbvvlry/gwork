@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private BottomNavigationView nv = null;
+    public BottomNavigationView nv = null;
 
     public void onAuth(String login, String userCode) {
         String[] responseCode = userCode.split(" ");
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 changeFragment(new EventsFragment());
                 return true;
             case R.id.tasks_page:
-                changeFragment(new TasksFragment());
+                taskFragmentChanging(MyUser.level);
                 return true;
             case R.id.home_page:
                 changeFragment(new HomeFragment());
@@ -54,8 +54,24 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    private void taskFragmentChanging(int level) {
+        switch (MyUser.level) {
+            case 1:
+                changeFragment(new TasksFragment());
+                break;
+            case 2:
+                changeFragment(new TasksLvl2Fragment());
+                break;
+            case 3:
+                changeFragment(new HomeFragment());
+                nv.getMenu().findItem(R.id.tasks_page).setVisible(false);
+                break;
+            default: break;
+        }
+    }
+
     private void onSuccessAuthentication() {
-        changeFragment(new TasksFragment());
+        taskFragmentChanging(MyUser.level);
         nv.setVisibility(View.VISIBLE);
     }
 
@@ -63,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         public static Integer id = null;
         public static String login = null;
         public static Integer level = null;
+        public static Integer taskListId = null;
     }
 
 }

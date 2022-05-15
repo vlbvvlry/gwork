@@ -1,7 +1,9 @@
 package com.example.iem.network;
 
 import com.example.iem.network.models.Event;
+import com.example.iem.network.models.Task;
 import com.example.iem.network.models.TaskList;
+import com.example.iem.network.models.User;
 
 import java.util.List;
 
@@ -18,11 +20,23 @@ public interface API {
     @GET("/get_all_events")
     Call<List<Event>> getEvents();
 
+    @GET("/get_all_user")
+    Call<List<User>> getUsers();
+
     @GET("/get_all_the_task_list/{user_id}")
     Call<List<TaskList>> getAllTaskList(@Path("user_id") Integer userId);
+
+    @GET("/get_task_list/{task_list_id}")
+    Call<List<Task>> getAllTaskByTaskList(@Path("task_list_id") Integer taskListId);
 
     @POST("/login")
     @FormUrlEncoded
     Call<ResponseBody> login(@Field("login") String login,
                              @Field("password") String password);
+
+    @POST("add_task")
+    @FormUrlEncoded
+    Call<ResponseBody> addTask(@Field("content") String content,
+                               @Field("checked") Boolean checked,
+                               @Field("taskListId") Integer taskListId);
 }
