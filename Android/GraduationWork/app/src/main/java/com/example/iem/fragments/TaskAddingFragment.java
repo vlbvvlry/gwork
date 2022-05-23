@@ -87,11 +87,16 @@ public class TaskAddingFragment extends Fragment {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         ((Button)view.findViewById(R.id.adder))
-                                .setText("УСПЕХ");
+                                .setText("Отправлено!");
+                        ((Button)view.findViewById(R.id.adder))
+                                .setEnabled(false);
                     }
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        //
+                        ((Button)view.findViewById(R.id.adder))
+                                .setText("Ошибка");
+                        ((Button)view.findViewById(R.id.adder))
+                                .setEnabled(false);
                     }
                 });
     }

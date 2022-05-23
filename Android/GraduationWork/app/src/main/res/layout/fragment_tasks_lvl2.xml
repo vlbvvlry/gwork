@@ -33,7 +33,6 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="Ваши подопечные"
-                android:textStyle="bold"
                 android:textColor="@color/black"/>
         </Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
