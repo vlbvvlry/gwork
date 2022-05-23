@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Новый список задач для"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:gravity="bottom|center" />
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:gravity="center|top"
+        android:text="ФИО" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="32sp"
+        android:background="@drawable/background_input"
+        android:paddingHorizontal="10sp"
+        android:maxLines="1"
+        android:hint="Назвать список"
+        android:layout_margin="10sp" />
+    <EditText
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:paddingHorizontal="10sp"
+        android:layout_height="240sp"
+        android:background="@drawable/background_input"
+        android:layout_margin="10sp"
+        android:hint="Дать задачи"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <Button
+            android:id="@+id/adder"
+            android:layout_width="match_parent"
+            android:layout_height="35sp"
+            android:textSize="12sp"
+            android:background="@drawable/background_input"
+            android:text="Отправить" />
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="35sp"
+            android:textSize="12sp"
+            android:background="@drawable/background_input"
+            android:text="Закрыть" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

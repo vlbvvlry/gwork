@@ -57,10 +57,10 @@ public class MainActivity extends AppCompatActivity {
     private void taskFragmentChanging(int level) {
         switch (MyUser.level) {
             case 1:
-                changeFragment(new TasksFragment());
+                changeFragment(new Lvl1TasksFragment());
                 break;
             case 2:
-                changeFragment(new TasksLvl2Fragment());
+                changeFragment(new Lvl2TasksFragment());
                 break;
             case 3:
                 changeFragment(new HomeFragment());

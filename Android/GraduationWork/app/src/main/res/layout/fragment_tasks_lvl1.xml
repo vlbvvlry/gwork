@@ -6,18 +6,15 @@
     android:background="@color/grey"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/taskPageItemList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -26,69 +23,61 @@
                 android:layout_marginBottom="4sp"
                 android:orientation="vertical"
                 android:padding="6sp"
-                android:background="@drawable/event_item_background">
-
+                android:background="@drawable/background_block">
                 <TextView
                     android:id="@+id/taskListBoxTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Ваши задачи:"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1sp"
-                    android:layout_marginTop="2sp"
+                    android:layout_marginVertical="4sp"
                     android:background="@color/grey" />
-
                 <ListView
                     android:id="@+id/task_list"
                     android:layout_width="match_parent"
                     android:layout_height="200sp"
                     android:layout_marginTop="4sp"
                     android:choiceMode="multipleChoice"
-                    tools:listitem="@layout/task_item" />
-
+                    tools:listitem="@layout/item_task" />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1sp"
-                    android:layout_marginTop="2sp"
+                    android:layout_marginVertical="4sp"
                     android:background="@color/grey" />
-
                 <Button
                     android:id="@+id/checkBoxButton"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4sp"
-                    android:text="CHECK"/>
-
+                    android:layout_height="36sp"
+                    android:background="@drawable/background_input"
+                    android:layout_marginVertical="6sp"
+                    android:text="Оповестить куратора"
+                    android:textSize="12sp"/>
             </LinearLayout>
-
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="6sp"
-                android:background="@drawable/event_item_background"
+                android:background="@drawable/background_block"
                 android:layout_margin="4sp">
-
                 <TextView
                     android:id="@+id/deadlineTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Срок:"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1sp"
                     android:background="@color/grey"
-                    android:layout_marginTop="2sp" />
-
+                    android:layout_marginVertical="4sp" />
                 <TextView
                     android:id="@+id/DL"
                     android:layout_width="match_parent"
@@ -96,57 +85,44 @@
                     android:layout_marginTop="4sp"
                     android:text="-"
                     android:textAlignment="center"
-                    android:textStyle="italic"
                     android:textColor="@color/black"
                     android:textSize="24sp" />
-
-
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4sp"
                 android:padding="6sp"
                 android:orientation="vertical"
-                android:background="@drawable/event_item_background">
-
+                android:background="@drawable/background_block">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Дополнительные материалы:"
-                    android:textSize="24sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/black" />
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1sp"
                     android:background="@color/grey"
-                    android:layout_marginTop="2sp" />
-
+                    android:layout_marginVertical="4sp" />
                 <ListView
                     android:id="@+id/linkList"
                     android:layout_width="match_parent"
                     android:layout_height="512sp"
                     android:layout_marginTop="4sp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/link_item"/>
-
-
+                    tools:listitem="@layout/item_link"/>
             </LinearLayout>
-
         </LinearLayout>
-
     </androidx.core.widget.NestedScrollView>
-
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/toolbar_background_curved"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <Toolbar
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
@@ -155,26 +131,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18sp"
+                android:layout_height="match_parent"
                 android:layout_marginStart="18sp"
+                android:gravity="center"
                 android:textColor="@color/black"
-                android:text="@string/tasks_page_icon"
-                android:textStyle="bold" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="40sp"
-                android:layout_marginEnd="18sp"
-                android:layout_gravity="end"
-                android:text="Фильтр"/>
-
+                android:text="@string/tasks_page_icon" />
+<!--            <Button-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/background_button"-->
+<!--                android:layout_marginEnd="18sp"-->
+<!--                android:layout_gravity="end"-->
+<!--                android:text="Фильтр"/>-->
         </Toolbar>
-
     </com.google.android.material.appbar.AppBarLayout>
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

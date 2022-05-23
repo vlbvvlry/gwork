@@ -35,20 +35,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TasksFragment extends Fragment {
+public class Lvl1TasksFragment extends Fragment {
 
     private final List<CheckBox> taskStateList = new ArrayList<>();
     private ListView taskList = null;
     private List<TaskList> taskListList = null;
 
 
-    public TasksFragment() {
-        super(R.layout.fragment_tasks);
+    public Lvl1TasksFragment() {
+        super(R.layout.fragment_tasks_lvl1);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tasks, container, false);
+        View view = inflater.inflate(R.layout.fragment_tasks_lvl1, container, false);
         taskListInit(view);
         taskListCheckButtonInit(view);
         linkListInit(view);
@@ -115,7 +115,7 @@ public class TasksFragment extends Fragment {
         linkStateList.add("https://vk.com/audios137190618");
         linkStateList.add("https://android-tools.ru/help/chetyre-sposoba-dobavit-ssylku-v-razmetku/");
         linkStateList.add("http://rusdelphi.com/tag/android/");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(requireContext(), R.layout.link_item, R.id.linkItem, linkStateList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(requireContext(), R.layout.item_link, R.id.linkItem, linkStateList);
         ListView lv = view.findViewById(R.id.linkList);
         lv.setAdapter(adapter);
     }
@@ -132,13 +132,13 @@ public class TasksFragment extends Fragment {
     }
 
     private ArrayAdapter<CheckBox> getCheckBoxAdapter() {
-        ArrayAdapter<CheckBox> adapter = new ArrayAdapter<CheckBox>(requireContext(), R.layout.task_item, taskStateList) {
+        ArrayAdapter<CheckBox> adapter = new ArrayAdapter<CheckBox>(requireContext(), R.layout.item_task, taskStateList) {
             @SuppressLint("ViewHolder")
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 LayoutInflater inflater = ((Activity)requireContext()).getLayoutInflater();
-                convertView = inflater.inflate(R.layout.task_item, parent,false);
+                convertView = inflater.inflate(R.layout.item_task, parent,false);
                 CheckBox cb= convertView.findViewById(R.id.radioTask);
                 cb.setText(taskStateList.get(position).getText());
                 cb.setChecked(taskStateList.get(position).isChecked());

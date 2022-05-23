@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,15 +24,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TaskManageFragment extends Fragment {
+public class TaskAddingFragment extends Fragment {
 
-    private Integer userId;
-    private String name;
+    private final Integer userId;
+    private final String name;
     private Integer taskListId;
     private EditText content;
 
-    public TaskManageFragment(Integer userId, String name) {
-        super(R.layout.fragment_task_manage);
+    public TaskAddingFragment(Integer userId, String name) {
+        super(R.layout.fragment_task_adding);
         this.userId = userId;
         this.name = name;
     }
@@ -39,25 +40,19 @@ public class TaskManageFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_task_manage, container, false);
-        Button cancelBtn = view.findViewById(R.id.cancel);
+        View view = inflater.inflate(R.layout.fragment_task_adding, container, false);
         content = view.findViewById(R.id.content);
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MainActivity)requireActivity())
-                        .changeFragment(new TasksLvl2Fragment());
-                ((MainActivity)requireActivity())
-                        .nv.setVisibility(View.VISIBLE);
-            }
+        ((TextView)view.findViewById(R.id.name))
+                .setText(name);
+        view.findViewById(R.id.cancel)
+                .setOnClickListener(view1 -> {
+            ((MainActivity)requireActivity())
+                    .changeFragment(new Lvl2TasksFragment());
+            ((MainActivity)requireActivity())
+                    .nv.setVisibility(View.VISIBLE);
         });
-        Button addBtn = view.findViewById(R.id.adder);
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getTaskList(view);
-            }
-        });
+        view.findViewById(R.id.adder)
+                .setOnClickListener(this::getTaskList);
         return view;
     }
 
@@ -94,7 +89,6 @@ public class TaskManageFragment extends Fragment {
                         ((Button)view.findViewById(R.id.adder))
                                 .setText("УСПЕХ");
                     }
-
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         //

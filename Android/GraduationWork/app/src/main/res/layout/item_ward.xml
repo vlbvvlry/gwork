@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10sp"
-    android:background="@drawable/event_item_background">
+    android:background="@drawable/background_block"
+    android:layout_marginVertical="5sp"
+    android:layout_marginHorizontal="4sp"
+    android:padding="10sp">
     <TextView
         android:id="@+id/profileName"
         android:layout_width="match_parent"
@@ -12,21 +15,28 @@
         android:text="ФИО"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:gravity="center"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1sp"
-        android:layout_margin="4sp"
+        android:layout_marginVertical="4sp"
         android:background="@color/grey"/>
+
     <Button
         android:id="@+id/addButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Дать список задач" />
+        android:layout_height="35sp"
+        android:layout_marginVertical="4sp"
+        android:background="@drawable/background_input"
+        android:text="Дать список задач"
+        android:textSize="12sp" />
     <Button
         android:id="@+id/delButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35sp"
+        android:layout_marginVertical="4sp"
+        android:textSize="12sp"
+        android:background="@drawable/background_input"
         android:text="Удалить список задач"/>
 </LinearLayout>
