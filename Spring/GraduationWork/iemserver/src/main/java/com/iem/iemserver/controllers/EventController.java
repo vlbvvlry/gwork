@@ -24,7 +24,7 @@ public class EventController {
         return eventRepository.findAllByDepartmentId(departmentId);
     }
 
-    @PostMapping("/add_event")
+    @PostMapping("/events/add")
     public void addEvent(@RequestParam String title,
                          @RequestParam String content,
                          @RequestParam Integer userId) {

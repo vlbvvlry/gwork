@@ -32,7 +32,7 @@
                     android:id="@+id/name"
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
-                    android:text="Волобуев Валерий"
+                    android:text="..."
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:textColor="@color/black"
@@ -70,6 +70,11 @@
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:textColor="@color/black"
+                       android:text="Уровень: " />
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:textColor="@color/black"
                        android:text="Должность: "/>
                    <TextView
                        android:layout_width="match_parent"
@@ -91,6 +96,11 @@
                    app:layout_constraintStart_toEndOf="@+id/b1"
                    app:layout_constraintEnd_toEndOf="parent"
                    app:layout_constraintTop_toTopOf="parent">
+                   <TextView
+                       android:id="@+id/level"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="... "/>
                    <TextView
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"

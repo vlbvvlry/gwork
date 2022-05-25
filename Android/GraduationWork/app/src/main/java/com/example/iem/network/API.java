@@ -29,12 +29,21 @@ public interface API {
     @GET("/get_task_list/{task_list_id}")
     Call<List<Task>> getAllTaskByTaskList(@Path("task_list_id") Integer taskListId);
 
+    @GET("/users/userId={userId}")
+    Call<User> getMyUser (@Path("userId") Integer userId);
+
+    @POST("/events/add")
+    @FormUrlEncoded
+    Call<ResponseBody> addEvent(@Field("title") String title,
+                                @Field("content") String content,
+                                @Field("userId") Integer userId);
+
     @POST("/login")
     @FormUrlEncoded
     Call<ResponseBody> login(@Field("login") String login,
                              @Field("password") String password);
 
-    @POST("add_task")
+    @POST("/add_task")
     @FormUrlEncoded
     Call<ResponseBody> addTask(@Field("content") String content,
                                @Field("checked") Boolean checked,

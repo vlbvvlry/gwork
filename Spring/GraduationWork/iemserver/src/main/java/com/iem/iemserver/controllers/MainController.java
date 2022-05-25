@@ -23,6 +23,12 @@ public class MainController {
         return userRepository.findById(userId);
     }
 
+    @GetMapping("/users/userId={userId}")
+    public @ResponseBody Optional<User> getMyUser
+            (@PathVariable("userId") Integer userId) {
+        return userRepository.findById(userId);
+    }
+
     @GetMapping("/get_all_user")
     public @ResponseBody Iterable<User> getAllUser(){
         return userRepository.findAll();
