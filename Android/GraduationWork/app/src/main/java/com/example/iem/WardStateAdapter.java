@@ -26,6 +26,7 @@ public class WardStateAdapter extends ArrayAdapter<WardState> {
 
     public interface FragmentChanger {
         void taskAddingDisplay(int position);
+        void clearTaskList(int position);
     }
 
     public WardStateAdapter(@NonNull Context context, int resource, List<WardState> wardStateList) {
@@ -55,7 +56,9 @@ public class WardStateAdapter extends ArrayAdapter<WardState> {
         ((Button)convertView
                 .findViewById(R.id.delButton))
                 .setOnClickListener(view -> {
-                    //
+                    fragmentChanger.clearTaskList(position);
+                    ((Button)view.findViewById(R.id.delButton))
+                            .setEnabled(false);
                 });
         Log.d("WardListAdapter", "getView actuation. Position: " + position);
         Log.d("WardListAdapter. getView.", "List size: " + wardStateList.size());

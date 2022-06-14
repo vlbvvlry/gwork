@@ -34,6 +34,14 @@ public class TaskController {
         return taskRepository.findAllByTaskListId(TaskListId);
     }
 
+    @GetMapping("/tasks/items/clear/where/holderId={holderId}")
+    public String clearTaskList
+            (@PathVariable("holderId") Integer TaskListId){
+        taskRepository.deleteAll
+                        (taskRepository.findAllByTaskListId(TaskListId));
+        return "clear";
+    }
+
     @PostMapping("/add_the_task_list")
     public void addTaskList(@RequestParam String title,
                             @RequestParam Date deadline,

@@ -32,6 +32,9 @@ public interface API {
     @GET("/users/userId={userId}")
     Call<User> getMyUser (@Path("userId") Integer userId);
 
+    @GET("/tasks/items/clear/where/holderId={holderId}")
+    Call<ResponseBody> clearTaskList(@Path("holderId") Integer taskListId);
+
     @POST("/events/add")
     @FormUrlEncoded
     Call<ResponseBody> addEvent(@Field("title") String title,
@@ -42,6 +45,13 @@ public interface API {
     @FormUrlEncoded
     Call<ResponseBody> login(@Field("login") String login,
                              @Field("password") String password);
+
+    @POST("/registration")
+    @FormUrlEncoded
+    Call<ResponseBody> registration(@Field("fullName") String fullName,
+                                    @Field("login") String login,
+                                    @Field("password") String password,
+                                    @Field("level") Integer level);
 
     @POST("/add_task")
     @FormUrlEncoded

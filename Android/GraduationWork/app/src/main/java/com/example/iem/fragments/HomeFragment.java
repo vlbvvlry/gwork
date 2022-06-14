@@ -31,6 +31,10 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         loadMyUser(view);
+        (view.findViewById(R.id.exit))
+                .setOnClickListener(view1 -> {
+                    ((MainActivity)requireActivity()).exit();
+                });
         return view;
     }
 
@@ -58,8 +62,12 @@ public class HomeFragment extends Fragment {
                 .setText(user.getFullName());
         String level;
          switch (user.getLevel()) {
+             case 0:
+                 level = "Администратор";
+                 adminInit(view);
+                 break;
              case 1:
-                 level = "Н. Сотрудник";
+                 level = "Сотрудник";
                  break;
              case 2:
                  level = "Куратор";
@@ -87,5 +95,36 @@ public class HomeFragment extends Fragment {
         }
         ((TextView)view.findViewById(R.id.level))
                 .setText(level);
+    }
+
+    private void adminInit(View view) {
+        ((Button)view.findViewById(R.id.addEmpBtn))
+                .setVisibility(View.VISIBLE);
+        ((Button)view.findViewById(R.id.addEmpBtn))
+                .setEnabled(true);
+        ((Button)view.findViewById(R.id.addEmpBtn))
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ((MainActivity)requireActivity())
+                                .changeFragment(new EmpAddingFragment());
+                        ((MainActivity)requireActivity())
+                                .nv.setVisibility(View.GONE);
+                    }
+                });
+        ((Button)view.findViewById(R.id.addEventBtn))
+                .setVisibility(View.VISIBLE);
+        ((Button)view.findViewById(R.id.addEventBtn))
+                .setEnabled(true);
+        ((Button)view.findViewById(R.id.addEventBtn))
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ((MainActivity)requireActivity())
+                                .changeFragment(new EventAddingFragment());
+                        ((MainActivity)requireActivity())
+                                .nv.setVisibility(View.GONE);
+                    }
+                });
     }
 }

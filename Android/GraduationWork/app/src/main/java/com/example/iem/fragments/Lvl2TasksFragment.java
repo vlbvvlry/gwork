@@ -16,11 +16,13 @@ import com.example.iem.R;
 import com.example.iem.WardStateAdapter;
 import com.example.iem.WardState;
 import com.example.iem.network.NetworkService;
+import com.example.iem.network.models.TaskList;
 import com.example.iem.network.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,6 +54,42 @@ public class Lvl2TasksFragment extends Fragment
                 .nv.setVisibility(View.GONE);
     }
 
+    @Override
+    public void clearTaskList(int position) {
+        (new NetworkService())
+                .getApi()
+                .getAllTaskList(wardStateList.get(position).getId())
+                .enqueue(new Callback<List<TaskList>>() {
+                    @Override
+                    public void onResponse(Call<List<TaskList>> call, Response<List<TaskList>> response) {
+                        if (response.body() == null || response.body().size() < 1) {
+                            return;
+                        }
+                        clear(response.body().get(0).getId());
+                    }
+                    @Override
+                    public void onFailure(Call<List<TaskList>> call, Throwable t) {
+                        //
+                    }
+                });
+    }
+
+    private void clear(Integer id) {
+        (new NetworkService())
+                .getApi()
+                .clearTaskList(id)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        //
+                    }
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        //
+                    }
+                });
+    }
+
     private void loadWards(View view) {
         (new NetworkService())
                 .getApi()
@@ -65,10 +103,12 @@ public class Lvl2TasksFragment extends Fragment
                             return;
                         }
                         for (int i = 0; i < body.size(); i++) {
-                            WardState ws = new WardState();
-                            ws.setId(body.get(i).getId());
-                            ws.setName(body.get(i).getFullName());
-                            wardStateList.add(ws);
+                            if(body.get(i).getLevel() == 1) {
+                                WardState ws = new WardState();
+                                ws.setId(body.get(i).getId());
+                                ws.setName(body.get(i).getFullName());
+                                wardStateList.add(ws);
+                            }
                         }
                         wardListInit(view);
                     }
@@ -84,29 +124,6 @@ public class Lvl2TasksFragment extends Fragment
         adapter.setFragmentChanger(this);
         ListView wardListView = view.findViewById(R.id.wardListView);
         wardListView.setAdapter(adapter);
-//        view.findViewById(R.id.addButton)
-//                .setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        ((MainActivity)requireActivity())
-//                                .changeFragment(new TaskAddingFragment(wardStateList.get(0).getId(),
-//                                        wardStateList.get(0).getName()));
-//                        ((MainActivity)requireActivity())
-//                                .nv.setVisibility(View.GONE);
-//                    }
-//                });
-//        view.findViewById(R.id.addButton2)
-//                .setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        ((MainActivity)requireActivity())
-//                                .changeFragment(new TaskAddingFragment(wardStateList.get(3).getId(),
-//                                        wardStateList.get(3).getName()));
-//                        ((MainActivity)requireActivity())
-//                                .nv.setVisibility(View.GONE);
-//                    }
-//                });
-        //
     }
 
 }
